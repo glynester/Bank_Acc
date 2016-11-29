@@ -1,46 +1,6 @@
-class Transaction
-  require 'date'
-
-  attr_reader :amnt, :trans_type, :date
-
-  def initialize(trans_type, amnt, date=Time.now.strftime("%d/%m/%Y"))
-    @trans_type = trans_type
-    @amnt = amnt
-    validate_date(date)
-    @date = date
-  end
-
-  def validate_date(date)
-    begin
-      date = Date.strptime(date, "%d/%m/%Y")
-    rescue ArgumentError
-      puts "==> Sorry, the date \"#{date}\" is invalid <=="
-      exit
-    end
-    if date.year > Time.now().year
-     puts "==> Sorry, this date \"#{date.strftime("%d/%m/%Y")}\" is in the future and is invalid <=="
-     exit
-    end
-    date = date.strftime("%d/%m/%Y")
-    date
-  end
-end
-
-class Deposit < Transaction
-  def initialize(amnt, date=Time.now.strftime("%d/%m/%Y"))
-    @trans_type = "deposit"
-    @amnt = amnt
-    @date = validate_date(date)
-  end
-end
-
-class Withdrawal < Transaction
-  def initialize(amnt, date=Time.now.strftime("%d/%m/%Y"))
-    @trans_type = "withdrawal"
-    @amnt = amnt
-    @date = validate_date(date)
-  end
-end
+require_relative 'transaction'
+require_relative 'deposit'
+require_relative 'withdrawal'
 
 class Account
   def initialize(name = "")
@@ -125,17 +85,3 @@ class Account
     return line_width.push(item1, item2, item3, item4)
   end
 end
-
-acc = Account.new("A Person")
-acc.add_trans(Deposit.new(40, "2/3/2016"))
-acc.add_trans(Deposit.new(62.2, "31/3/2016"))
-dep1 = Deposit.new(920)
-acc.add_trans(dep1)
-puts acc.balance
-wdraw2 = Withdrawal.new(104450.1, "8/6/2016")
-wdraw1 = Withdrawal.new(220, "5/9/2016")
-acc.add_trans(wdraw1, wdraw2)
-puts wdraw1.amnt
-puts acc.balance
-puts acc.balance(3)
-acc.statement
