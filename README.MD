@@ -79,7 +79,7 @@ acc.add_trans(Withdrawal.new(304.8))
 print acc.balance  
 acc.statement  
 ```
-###Expected output of Script
+<strong>Expected output of Script</strong>  
 date           || credit   || debit    || balance
 29/11/2016     ||          ||    304.80||   1796.52
 29/2/2016      ||          ||    124.06||   2101.32

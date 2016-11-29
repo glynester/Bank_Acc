@@ -40,14 +40,16 @@ class Withdrawal < Transaction
 end
 
 class Account
-  def initialize(name)
+  def initialize(name = "")
     @name = name
     @balance = 0;
     @transactions = []
   end
 
-  def add_trans(trans)
-    @transactions << trans
+  def add_trans(*trans)
+    trans.each do |t|
+      @transactions << t
+    end
   end
 
   def balance(no_of_trans = @transactions.length)
@@ -76,15 +78,7 @@ class Account
   end
 
   private
-  def value(val)
-    val == 0 ? "% 10s" : "% 10.2f"
-  end
-
-  def blank(val)
-    val == 0 ? "" : val
-  end
-
-  def generate_statement
+    def generate_statement
     statement = []
     puts "date           || credit   || debit    || balance"
     @transactions.each_with_index do |trans, index|
@@ -101,16 +95,25 @@ class Account
     end
     statement
   end
+
+  def value(val)
+    val == 0 ? "% 10s" : "% 10.2f"
+  end
+
+  def blank(val)
+    val == 0 ? "" : val
+  end
+
 end
 
-# acc = Account.new("A Person")
-# acc.add_trans(Deposit.new(32.21))
-# dep1 = Deposit.new(25.38)
-# acc.add_trans(dep1)
-# puts acc.balance
-# wdraw1 = Withdrawal.new(100, "31/2/2016")
-# acc.add_trans(wdraw1)
-# puts wdraw1.amnt
-# puts acc.balance
-# puts acc.balance(3)
-# acc.statement
+acc = Account.new("A Person")
+acc.add_trans(Deposit.new(32.21))
+dep1 = Deposit.new(25.38)
+acc.add_trans(dep1)
+puts acc.balance
+wdraw1 = Withdrawal.new(100, "31/2/2016")
+acc.add_trans(wdraw1)
+puts wdraw1.amnt
+puts acc.balance
+puts acc.balance(3)
+acc.statement
