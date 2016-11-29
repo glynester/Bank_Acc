@@ -65,10 +65,22 @@ class Account
   end
 
   def statement
-    generate_statement
+    statement_lines = generate_statement
+    statement_lines.each{|t|
+      date = t[0];credit=t[1];debit=t[2];bal=t[3]
+      printf("%-15s||#{value(credit)}||#{value(debit)}||#{value(bal)}\n", date, blank(credit), blank(debit), bal)
+    }
   end
 
   private
+  def value(val)
+    val == 0 ? "% 10s" : "% 10.2f"
+  end
+
+  def blank(val)
+    val == 0 ? "" : val
+  end
+
   def generate_statement
     statement = []
     puts "date       || credit || debit   || balance"
@@ -82,7 +94,7 @@ class Account
       if trans.trans_type == "deposit"
         debit = 0
       elsif trans.trans_type == "withdrawal"
-        credit = trans.amnt
+        debit = trans.amnt
       end
       balance = balance(index+1)
       statement << [date,credit,debit,balance]
@@ -96,21 +108,9 @@ acc.add_trans(Deposit.new(32.21))
 dep1 = Deposit.new(25.38)
 acc.add_trans(dep1)
 puts acc.balance
-# puts dep1.amnt
-# puts dep1.trans_type
-# puts dep1.date
 wdraw1 = Withdrawal.new(100, "31/2/2016")
 acc.add_trans(wdraw1)
 puts wdraw1.amnt
 puts acc.balance
 puts acc.balance(3)
-puts acc.statement
-# puts dep2.date
-
-
-# dep1 = Transaction.new("deposit", 25.38)
-# puts dep1.amnt
-# puts dep1.trans_type
-# puts dep1.date
-# dep2 = Transaction.new("deposit", 25.38, 31/2/2016)
-# puts dep2.date
+acc.statement
