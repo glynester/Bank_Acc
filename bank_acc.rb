@@ -44,7 +44,7 @@ class Account
     @name = name
     @balance = 0;
     @transactions = []
-    @statement = []
+    # @statement = []
   end
 
   def add_trans(trans)
@@ -65,11 +65,29 @@ class Account
   end
 
   def statement
+    generate_statement
+  end
+
+  private
+  def generate_statement
+    statement = []
     puts "date       || credit || debit   || balance"
-    @transactions.each{|trans|
-      puts "#{trans.date}    || "
-    }
-    # puts balance
+    @transactions.each_with_index do |trans, index|
+      date = trans.date
+      if trans.trans_type == "deposit"
+        credit = trans.amnt
+      elsif trans.trans_type == "withdrawal"
+        credit = 0
+      end
+      if trans.trans_type == "deposit"
+        debit = 0
+      elsif trans.trans_type == "withdrawal"
+        credit = trans.amnt
+      end
+      balance = balance(index+1)
+      statement << [date,credit,debit,balance]
+    end
+    statement
   end
 end
 
@@ -86,7 +104,7 @@ acc.add_trans(wdraw1)
 puts wdraw1.amnt
 puts acc.balance
 puts acc.balance(3)
-acc.statement
+puts acc.statement
 # puts dep2.date
 
 
