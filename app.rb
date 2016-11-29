@@ -15,7 +15,16 @@ class Transaction
 
   private
   def validate_date(date)
-    date = Date.strptime(date, "%d/%m/%Y")
+    begin
+      date = Date.strptime(date, "%d/%m/%Y")
+    rescue ArgumentError
+      puts "==> Sorry, the date \"#{date}\" is invalid <=="
+      exit
+    end
+    if date.year > Time.now().year
+     puts "==> Sorry, this date \"#{date.strftime("%d/%m/%Y")}\" is in the future and is invalid <=="
+     exit
+    end
     date = date.strftime("%d/%m/%Y")
     date
   end
@@ -117,16 +126,16 @@ class Account
   end
 end
 
-acc = Account.new("A Person")
-acc.add_trans(Deposit.new(40, "2/3/2016"))
-acc.add_trans(Deposit.new(62.2))
-dep1 = Deposit.new(920)
-acc.add_trans(dep1)
-puts acc.balance
-wdraw2 = Withdrawal.new(104450.1, "8/6/2016")
-wdraw1 = Withdrawal.new(220, "5/9/2016")
-acc.add_trans(wdraw1, wdraw2)
-puts wdraw1.amnt
-puts acc.balance
-puts acc.balance(3)
-acc.statement
+# acc = Account.new("A Person")
+# acc.add_trans(Deposit.new(40, "2/3/2016"))
+# acc.add_trans(Deposit.new(62.2, "31/3/2016"))
+# dep1 = Deposit.new(920)
+# acc.add_trans(dep1)
+# puts acc.balance
+# wdraw2 = Withdrawal.new(104450.1, "8/6/2016")
+# wdraw1 = Withdrawal.new(220, "5/9/2016")
+# acc.add_trans(wdraw1, wdraw2)
+# puts wdraw1.amnt
+# puts acc.balance
+# puts acc.balance(3)
+# acc.statement
