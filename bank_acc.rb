@@ -44,13 +44,12 @@ class Account
     @name = name
     @balance = 0;
     @transactions = []
-    # @statement = []
   end
 
   def add_trans(trans)
     @transactions << trans
   end
-#XXXXXXXXXXXXXXXXXXXXXX
+
   def balance(no_of_trans = @transactions.length)
       @balance = 0
       trans_sel = @transactions[0...no_of_trans]
@@ -87,7 +86,7 @@ class Account
 
   def generate_statement
     statement = []
-    puts "date       || credit || debit   || balance"
+    puts "date           || credit   || debit    || balance"
     @transactions.each_with_index do |trans, index|
       date = trans.date
       if trans.trans_type == "deposit"
@@ -114,4 +113,4 @@ acc.add_trans(wdraw1)
 puts wdraw1.amnt
 puts acc.balance
 puts acc.balance(3)
-acc.statement("rev")
+acc.statement
