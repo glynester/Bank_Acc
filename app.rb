@@ -15,11 +15,9 @@ class Transaction
 
   private
   def validate_date(date)
-            # my_date = Date.strptime("12/22/2011", "%m/%d/%Y")
-    # my_date = Date.strptime(date, "%d/%m/%Y")
-    # my_date ? true : false
-    puts "Date value tested"
-    return true
+    date = Date.strptime(date, "%d/%m/%Y")
+    date = date.strftime("%d/%m/%Y")
+    date
   end
 end
 
@@ -27,7 +25,7 @@ class Deposit < Transaction
   def initialize(amnt, date=Time.now.strftime("%d/%m/%Y"))
     @trans_type = "deposit"
     @amnt = amnt
-    @date = date
+    @date = validate_date(date)
   end
 end
 
@@ -35,7 +33,7 @@ class Withdrawal < Transaction
   def initialize(amnt, date=Time.now.strftime("%d/%m/%Y"))
     @trans_type = "withdrawal"
     @amnt = amnt
-    @date = date
+    @date = validate_date(date)
   end
 end
 
@@ -120,13 +118,13 @@ class Account
 end
 
 acc = Account.new("A Person")
-acc.add_trans(Deposit.new(40))
+acc.add_trans(Deposit.new(40, "2/3/2016"))
 acc.add_trans(Deposit.new(62.2))
 dep1 = Deposit.new(920)
 acc.add_trans(dep1)
 puts acc.balance
-wdraw2 = Withdrawal.new(104450.1, "31/2/2016")
-wdraw1 = Withdrawal.new(220, "31/2/2016")
+wdraw2 = Withdrawal.new(104450.1, "8/6/2016")
+wdraw1 = Withdrawal.new(220, "5/9/2016")
 acc.add_trans(wdraw1, wdraw2)
 puts wdraw1.amnt
 puts acc.balance
