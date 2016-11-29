@@ -66,7 +66,7 @@ class Account
           @balance -= trans.amnt
         end
       }
-      @balance
+      @balance.round(2)
   end
 
   def statement(order = "down")
@@ -76,7 +76,6 @@ class Account
       statement_lines = generate_statement
     end
     cols = column_widths(statement_lines)
-    print cols; puts
     printf("%-#{cols[0]+2}s||%#{cols[1]+2}s||%#{cols[2]+2}s||%#{cols[3]+2}s\n", "date", "credit", "debit", "balance")
     statement_lines.each{|t|
       date = t[0];credit=t[1];debit=t[2];bal=t[3]
