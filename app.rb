@@ -6,14 +6,10 @@ class Transaction
   def initialize(trans_type, amnt, date=Time.now.strftime("%d/%m/%Y"))
     @trans_type = trans_type
     @amnt = amnt
-    if validate_date(date)
-      @date = date
-    else
-      raise "Date format is wrong"
-    end
+    validate_date(date)
+    @date = date
   end
 
-  private
   def validate_date(date)
     begin
       date = Date.strptime(date, "%d/%m/%Y")
@@ -51,11 +47,12 @@ class Account
     @name = name
     @balance = 0;
     @transactions = []
+    @allowed_trans = ["deposit","withdrawal"]
   end
 
   def add_trans(*trans)
     trans.each do |t|
-      @transactions << t
+      valid_trans_type(t) ? @transactions << t : (raise "Invalid transaction type")
     end
   end
 
@@ -88,6 +85,10 @@ class Account
   end
 
   private
+    def valid_trans_type(trans)
+      @allowed_trans.include? trans.trans_type
+    end
+
     def generate_statement
     statement = []
     @transactions.each_with_index do |trans, index|
@@ -126,16 +127,16 @@ class Account
   end
 end
 
-# acc = Account.new("A Person")
-# acc.add_trans(Deposit.new(40, "2/3/2016"))
-# acc.add_trans(Deposit.new(62.2, "31/3/2016"))
-# dep1 = Deposit.new(920)
-# acc.add_trans(dep1)
-# puts acc.balance
-# wdraw2 = Withdrawal.new(104450.1, "8/6/2016")
-# wdraw1 = Withdrawal.new(220, "5/9/2016")
-# acc.add_trans(wdraw1, wdraw2)
-# puts wdraw1.amnt
-# puts acc.balance
-# puts acc.balance(3)
-# acc.statement
+acc = Account.new("A Person")
+acc.add_trans(Deposit.new(40, "2/3/2016"))
+acc.add_trans(Deposit.new(62.2, "31/3/2016"))
+dep1 = Deposit.new(920)
+acc.add_trans(dep1)
+puts acc.balance
+wdraw2 = Withdrawal.new(104450.1, "8/6/2016")
+wdraw1 = Withdrawal.new(220, "5/9/2016")
+acc.add_trans(wdraw1, wdraw2)
+puts wdraw1.amnt
+puts acc.balance
+puts acc.balance(3)
+acc.statement
