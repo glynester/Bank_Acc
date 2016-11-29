@@ -44,15 +44,17 @@ class Account
     @name = name
     @balance = 0;
     @transactions = []
+    @statement = []
   end
 
   def add_trans(trans)
     @transactions << trans
   end
-
-  def balance
+#XXXXXXXXXXXXXXXXXXXXXX
+  def balance(no_of_trans = @transactions.length)
       @balance = 0
-      @transactions.each{|trans|
+      trans_sel = @transactions[0...no_of_trans]
+      trans_sel.each{|trans|
         if trans.trans_type == "deposit"
           @balance += trans.amnt
         elsif trans.trans_type == "withdrawal"
@@ -83,7 +85,7 @@ wdraw1 = Withdrawal.new(100, "31/2/2016")
 acc.add_trans(wdraw1)
 puts wdraw1.amnt
 puts acc.balance
-
+puts acc.balance(3)
 acc.statement
 # puts dep2.date
 
