@@ -103,14 +103,14 @@ class Account
   end
 end
 
-acc = Account.new("A Person")
-acc.add_trans(Deposit.new(32.21))
-dep1 = Deposit.new(25.38)
-acc.add_trans(dep1)
-puts acc.balance
-wdraw1 = Withdrawal.new(100, "31/2/2016")
-acc.add_trans(wdraw1)
-puts wdraw1.amnt
-puts acc.balance
-puts acc.balance(3)
-acc.statement
+# acc = Account.new("A Person")
+# acc.add_trans(Deposit.new(32.21))
+# dep1 = Deposit.new(25.38)
+# acc.add_trans(dep1)
+# puts acc.balance
+# wdraw1 = Withdrawal.new(100, "31/2/2016")
+# acc.add_trans(wdraw1)
+# puts wdraw1.amnt
+# puts acc.balance
+# puts acc.balance(3)
+# acc.statement
