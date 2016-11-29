@@ -10,3 +10,6 @@ You should be able to interact with the your code via IRB. (You don't need to im
 Deposits, withdrawal.  
 Account statement (date, amount, balance) printing.  
 Data can be kept in memory (it doesn't need to be stored to a database or anything).  
+
+##Instructions
+To reverse the order of the statement call statement with the parameter "rev".

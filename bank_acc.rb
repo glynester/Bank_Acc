@@ -64,8 +64,12 @@ class Account
       @balance
   end
 
-  def statement
-    statement_lines = generate_statement
+  def statement(order = "down")
+    if order == "down"
+      statement_lines = generate_statement.reverse
+    elsif order == "rev"
+      statement_lines = generate_statement
+    end
     statement_lines.each{|t|
       date = t[0];credit=t[1];debit=t[2];bal=t[3]
       printf("%-15s||#{value(credit)}||#{value(debit)}||#{value(bal)}\n", date, blank(credit), blank(debit), bal)
@@ -88,13 +92,10 @@ class Account
       date = trans.date
       if trans.trans_type == "deposit"
         credit = trans.amnt
-      elsif trans.trans_type == "withdrawal"
-        credit = 0
-      end
-      if trans.trans_type == "deposit"
         debit = 0
       elsif trans.trans_type == "withdrawal"
         debit = trans.amnt
+        credit = 0
       end
       balance = balance(index+1)
       statement << [date,credit,debit,balance]
@@ -113,4 +114,4 @@ acc.add_trans(wdraw1)
 puts wdraw1.amnt
 puts acc.balance
 puts acc.balance(3)
-acc.statement
+acc.statement("rev")
