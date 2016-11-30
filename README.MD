@@ -22,7 +22,7 @@ Capybara for used for testing the app.
 $ git clone https://github.com/glynester/Bank_Acc
 $ cd Bank_Account  
 $ irb
-$ load './app.rb'
+$ load './lib/account.rb'
 ```
 Type the commands contained in the instructions sections into the console in an irb (or pry) session.
 
