@@ -1,10 +1,12 @@
 ##**BRIEF**
 Given a client makes a deposit of 1000 on 10-01-2012 And a deposit of 2000 on 13-01-2012 And a withdrawal of 500 on 14-01-2012 When she prints her bank statement Then she would see  
 
-date       || credit || debit   || balance
-14/01/2012 ||        || 500.00  || 2500.00
-13/01/2012 || 2000.00||         || 3000.00
-10/01/2012 || 1000.00||         || 1000.00
+```
+date       || credit || debit   || balance  
+14/01/2012 ||        || 500.00  || 2500.00  
+13/01/2012 || 2000.00||         || 3000.00   
+10/01/2012 || 1000.00||         || 1000.00     
+```
 
 You should be able to interact with the your code via IRB. (You don't need to implement a command line interface that takes input from STDIN.)
 Deposits, withdrawal.  
@@ -28,7 +30,8 @@ Type the commands contained in the instructions sections into the console in an 
 
 
 ##**INSTRUCTIONS**
-<strong>To create a statement:</strong>  
+<strong>To create an account:</strong>  
+The account name parameter is optional.
 ```
 acc = Account.new("A Person")
 ```
@@ -39,15 +42,17 @@ If you omit the date parameter, the date today will default in.
 Date format is dd/mm/yyyy.
 ```
 dep1 = Deposit.new(25.38)  
-wdraw1 = Withdrawal.new(100, "31/2/2016")
+wdraw1 = Withdrawal.new(100, "27/02/2016")
 ```  
 
 <strong>To add the transactions to the account:</strong>
-The transaction can also be created in the parameters section   
+The transaction can be created in the parameters section of the "add_trans" method or a named transaction instance can be included as a parameter.   
+Transactions can be added singly or multiple transactions can be added at once.  
 ```
 acc.add_trans(dep1)  
 acc.add_trans(wdraw1)
 acc.add_trans(Deposit.new(32.21))
+acc.add_trans(Withdrawal.new(86.99),Deposit.new(154.75))
 ```  
 
 <strong>To get a balance:</strong>  
@@ -71,29 +76,19 @@ acc.statement(rev)
 irb
 load './app.rb'
 acc = Account.new("A Person")  
-dep1 = Deposit.new(2225.38, "2/1/2016")  
-wdraw1 = Withdrawal.new(124.06, "29/2/2016")
+dep1 = Deposit.new(2225.38, "02/01/2016")  
+wdraw1 = Withdrawal.new(124.06, "28/02/2016")
 acc.add_trans(dep1)
 acc.add_trans(wdraw1)
 acc.add_trans(Withdrawal.new(304.8))  
 print acc.balance  
 acc.statement  
 ```
-<strong>Expected output of Script</strong>  
-date           || credit   || debit    || balance
-29/11/2016     ||          ||    304.80||   1796.52
-29/2/2016      ||          ||    124.06||   2101.32
-2/1/2016       ||   2225.38||          ||   2225.38
+###Expected output of Script
 
-
-
-
-
-
-
-
-
-
-
-
-#
+```
+date           || credit   || debit    || balance  
+29/11/2016     ||          ||    304.80||   1796.52  
+28/02/2016     ||          ||    124.06||   2101.32  
+02/01/2016     ||   2225.38||          ||   2225.38  
+```
