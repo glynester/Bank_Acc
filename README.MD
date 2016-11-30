@@ -45,7 +45,7 @@ dep1 = Deposit.new(25.38)
 wdraw1 = Withdrawal.new(100, "27/02/2016")
 ```  
 
-<strong>To add the transactions to the account:</strong>
+<strong>To add the transactions to the account:</strong>  
 The transaction can be created in the parameters section of the "add_trans" method or a named transaction instance can be included as a parameter.   
 Transactions can be added singly or multiple transactions can be added at once.  
 ```
