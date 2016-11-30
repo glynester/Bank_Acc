@@ -15,7 +15,7 @@ Data can be kept in memory (it doesn't need to be stored to a database or anythi
 
 ##**APPROACH:**  
 This app is built using Ruby.  
-Interaction is via IRB.
+Interaction is via IRB.  
 Rspec is used for testing the app.
 
 
@@ -75,7 +75,7 @@ acc.statement(rev)
 ###Script (to type into the console):  
 ```
 irb
-load './app.rb'
+load './lib/account.rb'
 acc = Account.new("A Person")  
 dep1 = Deposit.new(2225.38, "02/01/2016")  
 wdraw1 = Withdrawal.new(124.06, "28/02/2016")
