@@ -14,9 +14,10 @@ Account statement (date, amount, balance) printing.
 Data can be kept in memory (it doesn't need to be stored to a database or anything).  
 
 ##**APPROACH:**  
-This app is built using Ruby on Rails.  
-Routes were manually configured rather than automatically configured by Rails using "resources".  
-Capybara for used for testing the app.  
+This app is built using Ruby.  
+Interaction is via IRB.
+Rspec is used for testing the app.
+
 
 ##**DOWNLOADING AND RUNNING CODE:**  
 
@@ -91,4 +92,11 @@ date           || credit   || debit    || balance
 29/11/2016     ||          ||    304.80||   1796.52  
 28/02/2016     ||          ||    124.06||   2101.32  
 02/01/2016     ||   2225.38||          ||   2225.38  
+```
+
+##**RUNNING TESTS:**  
+
+```
+$ cd Bank_Account
+$ rspec
 ```
